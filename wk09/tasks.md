@@ -1,6 +1,6 @@
 # Evaluation Tasks — Week 9
 
-## Task 1: Filter and Complete
+## Task 1: Find and delete
 **Scenario**: you have just cooked for your family
 
 **Instructions**:
@@ -44,12 +44,13 @@
 - Edit mode activates (input appears)
 - Save updates the title
 - Focus returns to edited task
+- Done in under 90 seconds
 
 **Inclusion focus**: Focus management, keyboard-only editing, Cancel button
 
 ---
 
-## Task 4: Delete Completed Task
+## Task 4: filter task
 **Scenario**: you've forgotten what time dinner was and need to find the task
 
 **Instructions**:
