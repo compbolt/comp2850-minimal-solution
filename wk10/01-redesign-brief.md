@@ -8,6 +8,8 @@
 
 ## Problem
 
+
+
 **1-2 sentences grounded in Week 9 analysis + Week 7 audit**:
 
 [Example: "Validation errors on the task edit form (T2) are not announced to screen readers, causing a 33% error rate and blocking task completion for SR users. Week 9 pilots (n=5) showed 2/5 participants using keyboard-only mode could not detect or correct blank submission errors (WCAG 4.1.3 violation)."]
