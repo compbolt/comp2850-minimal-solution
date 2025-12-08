@@ -316,7 +316,12 @@ private suspend fun ApplicationCall.handleEditTask(store: TaskStore) {
         respondText(html, ContentType.Text.Html)
     } else {
         // No-JS: redirect to list (would need edit mode support in index)
-        respondRedirect("/tasks")
+        val html = call.renderTemplate("tasks/index.peb", mapOf(
+            "title" to "Edit Task",
+            "tasks" to TaskRepository.all(),
+            "editingTaskId" to id
+        ))
+        call.respondText(html, ContentType.Text.Html)
     }
 }
 
