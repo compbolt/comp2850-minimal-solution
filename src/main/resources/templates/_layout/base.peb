@@ -58,12 +58,6 @@
       color: white !important; /* White text on blue background for better contrast */
     }
 
-    button[type="delete"],
-    button {
-      color: orange !important; 
-    button[type="edit"],
-    button {
-      color: green !important; 
     }
   </style>
 </head>

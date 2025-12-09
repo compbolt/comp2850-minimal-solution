@@ -209,10 +209,20 @@ select:focus {
   flex-shrink: 0;
 }
 
+
+
+
 .task-actions button {
   margin: 0;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
+}
+
+
+.deleteButton {
+background-color: rgb(143, 52, 0);
+color: white;
+border-color: #3bb71c;
 }
 
 /* ========================================
