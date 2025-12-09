@@ -80,7 +80,7 @@
 ### Theme 3: highlight button when selected (useful for keyboard only)
 **Evidence**: 1 participant tested keyboard-only, requested better highlighting when things where selected
 **Quotes**:
-- P5 (keyboard-only): "hard to see whats highlighted"
+- P2 (keyboard-only): "hard to see whats highlighted"
 
 **Design implication**: make highlighting focus using keyboard clearer
 
