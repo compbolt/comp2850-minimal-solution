@@ -10,7 +10,7 @@
 ### Task 1: Find and delete
 | Metric | HTMX (n=2) | No-JS (n=1) | Overall |
 |--------|------------|-------------|---------|
-| Mean time (s) | 4.705 | 1.77 | 48 |
+| Mean time (s) | 4.705 | 1.77 | 3.2375 |
 | Success rate | 100% | 100% | 100% |
 | Mean errors (out of 5) | 1.5 | 3.0 | 2.25 |
 | Mean confidence | 4.0/5 | 4.0/5 | 4.0/5 |
@@ -22,7 +22,7 @@
 ### Task 2: Add New Task
 | Metric | HTMX (n=2)| No-JS (n=1)| Overall |
 |--------|------|-------|---------|
-| Mean time (s) | 11.69 | 5.40 | 30.6 |
+| Mean time (s) | 11.69 | 5.40 | 08.545 |
 | Success rate | 100% | 100% | 100% |
 | Mean errors | 2.0 | 2.0 | 2.0 |
 | Mean confidence | 4.5/5 | 4.0/5 | 4.25/5 |
@@ -34,7 +34,7 @@
 ### Task 3: Edit Task Inline
 | Metric | HTMX (n=2)| No-JS (n=1)| Overall |
 |--------|------|-------|---------|
-| Mean time (s) | 5.535 | 90(dnf) | 30.6 |
+| Mean time (s) | 5.535 | 11.98(dnf) | 8.7575 |
 | Success rate | 100% | 0% | 66.7% |
 | Mean errors | 2.0 | 5.0 | 3.5 |
 | Mean confidence | 3.5/5 | 1.0/5 | 2.25/5 |
@@ -47,12 +47,12 @@
 ### Task 4: Add New Task
 | Metric | HTMX (n=2)| No-JS (n=1)| Overall |
 |--------|------|-------|---------|
-| Mean time (s) | 6.005 | 3.42 | 3.06 |
+| Mean time (s) | 6.005 | 3.42 | 4.7125 |
 | Success rate | 100% | 100% | 100% |
 | Mean errors | 2.5 | 0.0 | 0.8 |
 | Mean confidence | 4.0/5 | 5.0/5 | 4.5/5 |
 
-**Interpretation**: very high confident and high success, seemed to be fast as wel, 
+**Interpretation**: very high confident and high success, seemed to be fast as well, 
 
 ---
 
@@ -106,7 +106,7 @@ Based on frequency + severity:
 
 1. **High**: Edit button not working in no-js (affects 1/1 no-JS participants, low confidence)
 2. **Medium**: delete button not a different colour (minor problem, affected 2/3 participants)
-3. **Low**: eyboard focus highlighting (minor hesitation, all succeeded)
+3. **Low**: clearer focus highlighting (minor hesitation, all succeeded)
 
 
 
