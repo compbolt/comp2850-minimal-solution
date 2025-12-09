@@ -10,6 +10,9 @@
   
   {# HTMX for progressive enhancement #}
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+
+  {# custom css for better accessibility (links custom.css) #}
+  <link rel="stylesheet" href="/static/css/custom.css"> 
   
   <style>
     /* Visually hidden but accessible to screen readers (WCAG 1.3.1) */
@@ -53,6 +56,14 @@
     button[type="submit"],
     button {
       color: white !important; /* White text on blue background for better contrast */
+    }
+
+    button[type="delete"],
+    button {
+      color: orange !important; 
+    button[type="edit"],
+    button {
+      color: green !important; 
     }
   </style>
 </head>
