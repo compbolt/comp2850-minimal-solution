@@ -50,8 +50,8 @@
    Focus Indicators (WCAG 2.4.7)
    ======================================== */
 *:focus {
-  outline: 3px solid #4A90E2;
-  outline-offset: 2px;
+  outline: 5px solid #e24a4a;
+  outline-offset: 4px;
 }
 
 /* Remove default outline, replace with custom */
@@ -60,8 +60,8 @@ a:focus,
 input:focus,
 textarea:focus,
 select:focus {
-  outline: 3px solid #4A90E2;
-  outline-offset: 2px;
+  outline: 5px solid #e24a4a;
+  outline-offset: 4px;
 }
 
 /* ========================================
