@@ -321,50 +321,65 @@ private suspend fun ApplicationCall.handleEditTask(store: TaskStore) {
 }
 
 /**
- * Week 7: POST /tasks/{id}/edit - Update task
+ * Week 7 & 9: POST /tasks/{id}/edit - Update task with instrumentation
  */
 private suspend fun ApplicationCall.handleUpdateTask(store: TaskStore) {
-    val id = parameters["id"] ?: run {
-        respond(HttpStatusCode.BadRequest)
-        return
-    }
+    timed("T2_edit", jsMode()) {
+        val id = parameters["id"] ?: run {
+            respond(HttpStatusCode.BadRequest)
+            return@timed
+        }
 
-    val task = store.getById(id)
-    if (task == null) {
-        respond(HttpStatusCode.NotFound)
-        return
-    }
+        val task = store.getById(id)
+        if (task == null) {
+            respond(HttpStatusCode.NotFound)
+            return@timed
+        }
 
-    val newTitle = receiveParameters()["title"]?.trim() ?: ""
-    val validation = Task.validate(newTitle)
+        val newTitle = receiveParameters()["title"]?.trim() ?: ""
+        val validation = Task.validate(newTitle)
 
-    if (validation is ValidationResult.Error) {
+        if (validation is ValidationResult.Error) {
+            val outcome =
+                when {
+                    newTitle.isBlank() -> "blank_title"
+                    newTitle.length < Task.MIN_TITLE_LENGTH -> "min_length"
+                    newTitle.length > Task.MAX_TITLE_LENGTH -> "max_length"
+                    else -> "invalid_title"
+                }
+            logValidationError("T2_edit", outcome)
+
+            if (isHtmxRequest()) {
+                // HTMX: return edit form with error
+                val html =
+                    renderTemplate(
+                        "tasks/_edit.peb",
+                        mapOf(
+                            "task" to task.toPebbleContext(),
+                            "error" to validation.message,
+                        ),
+                    )
+                respondText(html, ContentType.Text.Html)
+            } else {
+                // No-JS: redirect back (would need error handling)
+                respondRedirect("/tasks")
+            }
+            return@timed
+        }
+
+        // Update task
+        val updated = task.copy(title = newTitle)
+        store.update(updated)
+
         if (isHtmxRequest()) {
-            // HTMX: return edit form with error
-            val html = renderTemplate("tasks/_edit.peb", mapOf(
-                "task" to task.toPebbleContext(),
-                "error" to validation.message
-            ))
-            respondText(html, ContentType.Text.Html)
+            // HTMX: return view fragment
+            val html = renderTemplate("tasks/_item.peb", mapOf("task" to updated.toPebbleContext()))
+            val status = """<div id="status" hx-swap-oob="true" role="status">Task updated successfully.</div>"""
+            respondText(html + status, ContentType.Text.Html)
         } else {
-            // No-JS: redirect back (would need error handling)
+            // No-JS: redirect to list
             respondRedirect("/tasks")
         }
-        return
-    }
-
-    // Update task
-    val updated = task.copy(title = newTitle)
-    store.update(updated)
-
-    if (isHtmxRequest()) {
-        // HTMX: return view fragment
-        val html = renderTemplate("tasks/_item.peb", mapOf("task" to updated.toPebbleContext()))
-        val status = """<div id="status" hx-swap-oob="true" role="status">Task updated successfully.</div>"""
-        respondText(html + status, ContentType.Text.Html)
-    } else {
-        // No-JS: redirect to list
-        respondRedirect("/tasks")
     }
 }
 
