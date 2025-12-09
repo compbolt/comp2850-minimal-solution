@@ -1,5 +1,7 @@
 # Evaluation Tasks — Week 9
 
+use this to clear ports: pkill -f java
+
 ## Task 1: Find and delete
 **Scenario**: you have just cooked for your family
 
