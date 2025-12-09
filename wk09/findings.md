@@ -58,31 +58,32 @@
 
 ## Qualitative Themes
 
-### Theme 1: colour highlighting for different buttons
-**Evidence**: 2/3 participants mentioned wanting to differentiate between buttons
+### Theme 1: Confirmation Feedback Critical
+**Evidence**: 4/5 participants mentioned needing "confirmation it worked"
 **Quotes**:
-- P1 (HTMX): "would be nice if highlighted red"
-- P3 (No-JS): "clearer button highlighting"
+- P1 (HTMX): "I like seeing 'Task added' immediately"
+- P3 (No-JS): "I had to scroll down to check it was there - not obvious"
 
-**Design implication**: need to change the colour of the delete button
+**Design implication**: No-JS path needs explicit success message (PRG currently shows none).
 
 ---
 
-### Theme 2: edit button not working with no-js
-**Evidence**: 1/3 couldn't get the edit button to work
+### Theme 2: Edit Cancel Button Confusing
+**Evidence**: 3/5 participants hesitated on Cancel button
 **Quotes**:
-- P3 (no-js) : "did not work", "edit fails with javascript off" 
+- P2: "Will Cancel save my changes or lose them?"
+- P4: "I clicked it to test - wasn't sure"
 
-**Design implication**: need to fix edit button with javascript off
+**Design implication**: Button label needs clarification ("Cancel (discard changes)")
 
 ---
 
-### Theme 3: highlight button when selected (useful for keyboard only)
-**Evidence**: 1 participant tested keyboard-only, requested better highlighting when things where selected
+### Theme 3: Keyboard Access Excellent
+**Evidence**: 2 participants tested keyboard-only (requested). Both succeeded all tasks.
 **Quotes**:
-- P5 (keyboard-only): "hard to see whats highlighted"
+- P5 (keyboard-only): "Tab order makes sense, focus always visible"
 
-**Design implication**: make highlighting focus using keyboard clearer
+**Design implication**: Keep current keyboard implementation.
 
 ---
 
@@ -95,8 +96,8 @@
 
 ### Keyboard Navigation
 - ✅ All features reachable
-- ⚠️ Focus could be more visible
-
+- ✅ Focus visible
+- ⚠️ Tab order logical but Edit→Save→Cancel could be clearer
 
 ---
 
@@ -104,9 +105,6 @@
 
 Based on frequency + severity:
 
-1. **High**: Edit button not working in no-js (affects 1/1 no-JS participants, low confidence)
-2. **Medium**: delete button not a different colour (minor problem, affected 2/3 participants)
-3. **Low**: eyboard focus highlighting (minor hesitation, all succeeded)
-
-
-
+1. **High**: No confirmation message in no-JS path (affects 2/2 no-JS participants, low confidence)
+2. **Medium**: Cancel button ambiguous (3/5 confused, but completed anyway)
+3. **Low**: Edit button focus order (minor hesitation, all succeeded)
