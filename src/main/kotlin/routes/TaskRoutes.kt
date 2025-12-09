@@ -311,17 +311,21 @@ private suspend fun ApplicationCall.handleEditTask(store: TaskStore) {
     }
 
     if (isHtmxRequest()) {
-        // HTMX: return inline edit fragment
+        // HTMX: return just the inline edit fragment
         val html = renderTemplate("tasks/_edit.peb", mapOf("task" to task.toPebbleContext()))
         respondText(html, ContentType.Text.Html)
     } else {
-        // No-JS: redirect to list (would need edit mode support in index)
-        val html = call.renderTemplate("tasks/index.peb", mapOf(
-            "title" to "Edit Task",
-            "tasks" to TaskRepository.all(),
-            "editingTaskId" to id
-        ))
-        call.respondText(html, ContentType.Text.Html)
+        // No-JS: Return full page (index.peb) 
+        // We reuse paginateTasks to ensure the list, search query, and page number remain consistent
+        val query = requestedQuery()
+        val page = requestedPage()
+        val paginated = paginateTasks(store, query, page)
+
+        // Inject 'editingTaskId' into the context so the template knows which row to render as a form
+        val context = paginated.context + mapOf("editingTaskId" to id)
+        
+        val html = renderTemplate("tasks/index.peb", context)
+        respondText(html, ContentType.Text.Html)
     }
 }
 
@@ -334,41 +338,48 @@ private suspend fun ApplicationCall.handleUpdateTask(store: TaskStore) {
         return
     }
 
+    // 1. Validate existence
     val task = store.getById(id)
     if (task == null) {
         respond(HttpStatusCode.NotFound)
         return
     }
 
+    // 2. Validate input
     val newTitle = receiveParameters()["title"]?.trim() ?: ""
     val validation = Task.validate(newTitle)
 
     if (validation is ValidationResult.Error) {
+        // Validation Failed
         if (isHtmxRequest()) {
-            // HTMX: return edit form with error
+            // HTMX: Re-render the edit form fragment with the error message
             val html = renderTemplate("tasks/_edit.peb", mapOf(
                 "task" to task.toPebbleContext(),
                 "error" to validation.message
             ))
             respondText(html, ContentType.Text.Html)
         } else {
-            // No-JS: redirect back (would need error handling)
-            respondRedirect("/tasks")
+            // No-JS: Redirect back to the edit route to try again (simplest fallback)
+            // Ideally, you would render the full page with errors, but a redirect is standard PRG safety here.
+            respondRedirect("/tasks/$id/edit") 
         }
         return
     }
 
-    // Update task
+    // 3. Success - Update Data
     val updated = task.copy(title = newTitle)
     store.update(updated)
 
     if (isHtmxRequest()) {
-        // HTMX: return view fragment
-        val html = renderTemplate("tasks/_item.peb", mapOf("task" to updated.toPebbleContext()))
-        val status = """<div id="status" hx-swap-oob="true" role="status">Task updated successfully.</div>"""
-        respondText(html + status, ContentType.Text.Html)
+        // HTMX: Return the "view" fragment (the row) + an Out-Of-Band status update
+        val itemHtml = renderTemplate("tasks/_item.peb", mapOf("task" to updated.toPebbleContext()))
+        
+        // Create the success message toast
+        val statusHtml = messageStatusFragment("""Task "${'$'}{updated.title}" updated.""")
+        
+        respondText(itemHtml + "\n" + statusHtml, ContentType.Text.Html)
     } else {
-        // No-JS: redirect to list
+        // No-JS: Redirect to the main list
         respondRedirect("/tasks")
     }
 }
