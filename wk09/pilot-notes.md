@@ -41,3 +41,18 @@ mouse and js-off
 DNF(after 90s of attempt) | 3 | "did not work" | "edit fails with javascript off" | 5 | 1
 3.42 | 4 | "easy to see it working" | "n/a" | 0 | 5
 
+
+
+
+second run of pilots:
+keyboard and htmx
+- [yes] Purpose explained (evaluate task manager, not testing you)
+- [yes] Tasks described (4 scenarios, ~15 minutes)
+- [yes] Data collected listed (times, clicks, observations - no PII)
+- [yes] Right to withdraw explained (stop anytime, data deleted)
+- [yes] Participant verbally consents
+
+04.03 | 1 | "delete button was a nice colour" | "" | 0 | 5
+06.71 | 2 | "I liked the fact it highlighted what I was focused on" | "" | 0 | 4
+09.01| 3 | "it worked" | "pilot accidentaly tabbed past the edit button but was able to shift tab back" | 0 | 4
+04.15 | 4 | "easy to use" | "n/a" | 0 | 4
